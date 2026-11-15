@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.game2048"
+    namespace = "com.smartagentlab.game2048"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.game2048"
+        applicationId = "com.smartagentlab.game2048"
         minSdk = 28
         targetSdk = 36
         versionCode = 1
@@ -36,7 +36,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
