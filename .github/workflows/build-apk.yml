@@ -25,10 +25,10 @@ jobs:
         run: ./gradlew assembleRelease
 
       - name: Sign APK
-        uses: android-actions/sign-release@v1
+        uses: r0adkll/sign-android-release@v2
         id: sign_app
         with:
-          releaseDir: app/build/outputs/apk/release
+          releaseDirectory: app/build/outputs/apk/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY }}
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
