@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.smartagentlab.game2048"
+    namespace = "com.gamehub.puzzle2048"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.smartagentlab.game2048"
+        applicationId = "com.gamehub.puzzle2048"
         minSdk = 28
         targetSdk = 36
         versionCode = 1
