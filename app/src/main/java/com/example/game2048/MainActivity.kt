@@ -1,4 +1,4 @@
-package com.example.game2048
+package com.gamehub.puzzle2048
 
 import android.content.Context
 import android.graphics.Color
@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         gameBoard = findViewById(R.id.game_board)
-        // Ensure the board can receive touch events
         gameBoard.isClickable = true
         gameBoard.isFocusable = true
         scoreValueTextView = findViewById(R.id.score_value)
@@ -78,7 +77,6 @@ class MainActivity : AppCompatActivity() {
             private val SWIPE_THRESHOLD = 100
             private val SWIPE_VELOCITY_THRESHOLD = 100
 
-            // Must return true here so GestureDetector will continue to handle gestures
             override fun onDown(e: MotionEvent): Boolean {
                 return true
             }
@@ -94,7 +92,6 @@ class MainActivity : AppCompatActivity() {
                 val diffY = e2.y - e1.y
 
                 if (kotlin.math.abs(diffX) > kotlin.math.abs(diffY)) {
-                    // Horizontal swipe
                     if (kotlin.math.abs(diffX) > SWIPE_THRESHOLD && kotlin.math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffX > 0) {
                             move(Direction.RIGHT)
@@ -104,7 +101,6 @@ class MainActivity : AppCompatActivity() {
                         return true
                     }
                 } else {
-                    // Vertical swipe
                     if (kotlin.math.abs(diffY) > SWIPE_THRESHOLD && kotlin.math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffY > 0) {
                             move(Direction.DOWN)
@@ -216,27 +212,27 @@ class MainActivity : AppCompatActivity() {
 
     private fun getTileColor(value: Int): Int {
         return when (value) {
-            0 -> Color.parseColor("#CDC1B4") // Empty tile (matches background)
-            2 -> Color.parseColor("#EEE4DA") // Light beige
-            4 -> Color.parseColor("#EDE0C8") // Pale yellow
-            8 -> Color.parseColor("#F2B179") // Orange
-            16 -> Color.parseColor("#F59563") // Dark orange
-            32 -> Color.parseColor("#F67C5F") // Red-orange
-            64 -> Color.parseColor("#F65E3B") // Strong red
-            128 -> Color.parseColor("#EDCF72") // Yellow gold
-            256 -> Color.parseColor("#EDCC61") // Bright gold
-            512 -> Color.parseColor("#EDC850") // Deep gold
-            1024 -> Color.parseColor("#EDC53F") // Golden yellow
-            2048 -> Color.parseColor("#EDC22E") // Victory gold
-            else -> Color.parseColor("#3C3A32") // Super gold for higher values
+            0 -> Color.parseColor("#CDC1B4")
+            2 -> Color.parseColor("#EEE4DA")
+            4 -> Color.parseColor("#EDE0C8")
+            8 -> Color.parseColor("#F2B179")
+            16 -> Color.parseColor("#F59563")
+            32 -> Color.parseColor("#F67C5F")
+            64 -> Color.parseColor("#F65E3B")
+            128 -> Color.parseColor("#EDCF72")
+            256 -> Color.parseColor("#EDCC61")
+            512 -> Color.parseColor("#EDC850")
+            1024 -> Color.parseColor("#EDC53F")
+            2048 -> Color.parseColor("#EDC22E")
+            else -> Color.parseColor("#3C3A32")
         }
     }
 
     private fun getTileTextColor(value: Int): Int {
         return when (value) {
-            0 -> Color.TRANSPARENT // Empty tile has no text
-            2, 4 -> Color.parseColor("#776E65") // Dark text for light tiles
-            else -> Color.parseColor("#F9F6F2") // Light text for darker tiles
+            0 -> Color.TRANSPARENT
+            2, 4 -> Color.parseColor("#776E65")
+            else -> Color.parseColor("#F9F6F2")
         }
     }
 
@@ -244,7 +240,6 @@ class MainActivity : AppCompatActivity() {
         UP, DOWN, LEFT, RIGHT
     }
     
-    // Transpose the board (rows become columns and vice-versa)
     private fun transpose(matrix: Array<Array<Int>>): Array<Array<Int>> {
         val newMatrix = Array(BOARD_SIZE) { Array(BOARD_SIZE) { 0 } }
         for (i in 0 until BOARD_SIZE) {
@@ -255,7 +250,6 @@ class MainActivity : AppCompatActivity() {
         return newMatrix
     }
 
-    // Reverse the order of elements in each row
     private fun reverse(matrix: Array<Array<Int>>): Array<Array<Int>> {
         return matrix.map { it.reversedArray() }.toTypedArray()
     }
@@ -300,10 +294,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun slideAndCombine(line: Array<Int>): Array<Int> {
-        // 1. Slide: Remove zeros and push numbers to the left
         val slid = line.filter { it != 0 }.toMutableList()
         
-        // 2. Combine: Merge identical adjacent numbers
         var i = 0
         while (i < slid.size - 1) {
             if (slid[i] == slid[i+1]) {
@@ -314,7 +306,6 @@ class MainActivity : AppCompatActivity() {
             i++
         }
 
-        // 3. Pad with zeros to the right
         while(slid.size < BOARD_SIZE) {
             slid.add(0)
         }
